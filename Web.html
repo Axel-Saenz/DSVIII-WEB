@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dashboard - Proyecto Final</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <h1>Dashboard de Estacionamiento</h1>
+  </header>
+
+  <main class="container">
+    <section class="counters">
+      <div class="card">
+        <h2>Cantidad de vehículos</h2>
+        <div id="vehicles" class="number">0</div>
+      </div>
+      <div class="card">
+        <h2>Estacionamientos disponibles</h2>
+        <div id="available" class="number">0</div>
+      </div>
+      <div class="card">
+        <h2>Vehículos mal estacionados</h2>
+        <div id="misparked" class="number">0</div>
+      </div>
+    </section>
+
+    <section class="video-section">
+      <div class="video-controls">
+        <label for="wsUrl">WebSocket URL:</label>
+        <input id="wsUrl" type="text" value="ws://localhost:8080" />
+        <button id="connectBtn">Conectar</button>
+        <button id="disconnectBtn" disabled>Desconectar</button>
+        <button id="simulateBtn">Simular</button>
+      </div>
+
+      <div class="video-container">
+        <img id="videoStream" alt="Video en vivo" />
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
