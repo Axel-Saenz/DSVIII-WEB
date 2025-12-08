@@ -8,8 +8,10 @@
 </head>
 <body>
   <header class="site-header">
-    <h1>Dashboard de Estacionamiento</h1>
+    <h1>TRAFFICREAPER</h1>
   </header>
+
+  <div id="alerts" class="alerts" aria-live="polite"></div>
 
   <main class="container">
     <section class="counters">
@@ -18,24 +20,34 @@
         <div id="vehicles" class="number">0</div>
       </div>
       <div class="card">
-        <h2>Estacionamientos disponibles</h2>
-        <div id="available" class="number">0</div>
+        <h2>Densidad</h2>
+        <div id="density" class="number">0</div>
       </div>
       <div class="card">
-        <h2>Vehículos mal estacionados</h2>
-        <div id="misparked" class="number">0</div>
+        <h2>Cluster</h2>
+        <div id="cluster" class="number">0</div>
       </div>
     </section>
 
     <section class="video-section">
       <div class="video-controls">
-        <label for="wsUrl">WebSocket URL:</label>
-        <input id="wsUrl" type="text" value="ws://localhost:8080" />
-        <button id="connectBtn">Conectar</button>
-        <button id="disconnectBtn" disabled>Desconectar</button>
         <button id="simulateBtn">Simular</button>
       </div>
 
+      <div class="api-controls">
+        <input id="apiBase" type="hidden" value="http://localhost:8080" />
+        <input id="imageFile" type="file" accept="image/*" />
+        <button id="analyzeBtn">Analizar</button>
+        <button id="refreshTasksBtn">Refrescar tareas</button>
+        <label for="autoRefresh">Auto-refresh</label>
+        <input id="autoRefresh" type="checkbox" />
+      </div>
+
+      <div class="tasks-list">
+        <h3>Tareas</h3>
+        <ul id="tasksList"></ul>
+      </div>
+      <div id="debug" class="debug" hidden></div>
       <div class="video-container">
         <img id="videoStream" alt="Video en vivo" />
       </div>
