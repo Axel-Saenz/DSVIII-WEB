@@ -38,18 +38,20 @@
     simulateBtn.textContent = 'Parar simulación';
     let v = 12, d = 40, c = 1;
     updateCounters({ vehicles: v, density: d, cluster: c });
-    videoImg.src = makeSvgFrame('Simulación iniciada');
+    // Only show simulation frames if the video image is visible
+    if (videoImg.style.display !== 'none') videoImg.src = makeSvgFrame('Simulación iniciada');
     simulateInterval = setInterval(() => {
       v = Math.max(0, v + (Math.random() > 0.5 ? 1 : -1));
       // assume capacity 20 for demo density calculation
       d = Math.max(0, Math.min(100, Math.round((v / 20) * 100)));
       c = Math.max(0, Math.floor(Math.random() * 5));
       updateCounters({ vehicles: v, density: d, cluster: c });
-      videoImg.src = makeSvgFrame(`Frame ${Date.now() % 10000}`);
+      if (videoImg.style.display !== 'none') videoImg.src = makeSvgFrame(`Frame ${Date.now() % 10000}`);
     }, 1500);
   }
 
   simulateBtn.addEventListener('click', () => { startSimulate(); });
+  // NOTE: no inline preview on file select — image remains hidden until processing completes
   if (refreshTasksBtn) refreshTasksBtn.addEventListener('click', fetchTasks);
   if (analyzeBtn) analyzeBtn.addEventListener('click', onAnalyzeClicked);
   let tasksAutoRefreshInterval = null;
@@ -476,6 +478,7 @@
               updateCounters(counters);
             } catch (e) { console.error('apply embedded result to counters failed', e); }
           }
+          // Do not auto-show overlays from embedded results on initial load — only show when task becomes COMPLETED
           // Always try to fetch full details (this will update counters if task is completed)
           if (tid) showTaskDetails(tid);
         }
@@ -501,6 +504,7 @@
         const counters = extractCountersFromResult(result);
         updateCounters(counters);
         // show overlay in main image
+        videoImg.style.display = 'block';
         videoImg.src = apiBase + `/images/${taskId}/overlay?compressed=true`;
         // If frames array exists, offer play button
         const frames = result.frames || result.saved_frames || result.saved_frames_list || result.frame_urls || result.frames_urls;
